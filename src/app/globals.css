@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07060d;
+  --color-bg-2: #0d0a1a;
+  --color-ink: #ffffff;
+  --color-mute: #9aa0b4;
+  --color-purple: #a855f7;
+  --color-purple-2: #7c3aed;
+  --color-orange: #f59e0b;
+  --color-orange-2: #f97316;
+  --color-pink: #ec4899;
+  --color-green: #10b981;
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+::selection { background: #a855f7; color: #fff; }
+
+.glow-purple { box-shadow: 0 0 60px -10px rgba(168,85,247,0.55); }
+.glow-orange { box-shadow: 0 0 60px -10px rgba(245,158,11,0.55); }
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg,#a855f7 0%,#ec4899 50%,#f59e0b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

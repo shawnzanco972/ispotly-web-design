@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ispotly-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "C:\\Users\\Shawn\\ispotly-web-design",
+      "port": 3000
+    }
+  ]
+}
