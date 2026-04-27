@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "Can I play on desktop?",
-    a: "Mobile-first, but the web build at ispotly.com runs fine on desktop too. Native iOS and Android apps are next on the roadmap.",
+    a: "Mobile-first, but the web build at ispotly.com runs fine on desktop too. The native iOS and Android apps are already live on the App Store and Google Play.",
   },
   {
     q: "Where do the stems come from?",

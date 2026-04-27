@@ -1,11 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Shuffle, Crown } from "lucide-react";
 import RandomPlayModal from "./RandomPlayModal";
 
+const TRACK_BASE_DATE = Date.UTC(2026, 3, 27); // Apr 27 2026
+const TRACK_BASE_ID = 437;
+
+function getDailyInfo() {
+  const now = new Date();
+  const todayUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  const days = Math.round((todayUTC - TRACK_BASE_DATE) / 86400000);
+  const trackId = TRACK_BASE_ID + days;
+  const month = now.toLocaleString("en-US", { month: "short" }).toUpperCase();
+  return { dateStr: `${month} ${now.getDate()}`, trackId };
+}
+
 export default function QuickPlay() {
   const [open, setOpen] = useState(false);
+  const [daily, setDaily] = useState({ dateStr: "APR 27", trackId: 437 });
+
+  useEffect(() => {
+    setDaily(getDailyInfo());
+  }, []);
 
   return (
     <>
@@ -39,9 +56,15 @@ export default function QuickPlay() {
                 <h3 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight">Daily Game</h3>
                 <p className="text-black/80 text-base mt-3 max-w-sm">It's here. What are you waiting for?</p>
               </div>
-              <div className="relative flex items-center justify-between">
-                <div className="text-black/70 text-xs uppercase tracking-[0.3em] font-bold">Apr 27 · Track #437</div>
-                <div className="px-5 py-2.5 rounded-full bg-black text-white font-bold text-sm group-hover:scale-105 transition">Play now</div>
+              <div className="relative flex items-end justify-between gap-3">
+                <div className="text-black/70 text-[10px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] font-bold leading-tight">
+                  {daily.dateStr}
+                  <br />
+                  Track #{daily.trackId}
+                </div>
+                <div className="shrink-0 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-black text-white font-bold text-xs sm:text-sm group-hover:scale-105 transition whitespace-nowrap">
+                  Play now
+                </div>
               </div>
             </motion.a>
 

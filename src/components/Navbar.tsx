@@ -1,7 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Instagram, Facebook } from "lucide-react";
+
+const TikTokIcon = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+    <path d="M19.6 6.6a5.4 5.4 0 0 1-3.2-1V15a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.7a3 3 0 1 0 2.1 2.8V2h2.6a5.4 5.4 0 0 0 3.2 4.6v0z" />
+  </svg>
+);
+
+const socials = [
+  { Icon: TikTokIcon, href: "https://www.tiktok.com/@ispotly.com", label: "TikTok" },
+  { Icon: Instagram, href: "https://www.instagram.com/ispotlygame/", label: "Instagram" },
+  { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61579447937518", label: "Facebook" },
+];
 
 const links = [
   { label: "Play online", href: "https://ispotly.com/daily", external: true },
@@ -101,6 +113,27 @@ export default function Navbar() {
               >
                 Download Now
               </a>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="mt-8 flex items-center gap-4"
+              >
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    onClick={() => setOpen(false)}
+                    className="w-12 h-12 rounded-full border border-white/15 flex items-center justify-center text-white hover:border-purple-400 hover:text-purple-300 transition"
+                  >
+                    <s.Icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         )}

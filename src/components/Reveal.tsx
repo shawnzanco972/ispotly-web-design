@@ -22,50 +22,50 @@ const ITEMS: Item[] = [
     name: "Classic Rock",
     img: "https://res.cloudinary.com/dyvgrd762/image/upload/q_auto/f_auto/v1768739331/ClassicRock_Square",
     stems: [
-      { color: "#ffc857", shape: "spike",   speed: 6.0, amp: 0.95, freq: 8,   jitter: 0.55, lineWidth: 2.2 },
-      { color: "#ff8a3d", shape: "rolling", speed: 1.8, amp: 0.85, freq: 1.9, jitter: 0.30, lineWidth: 3.6 },
-      { color: "#ffd166", shape: "rolling", speed: 2.2, amp: 0.65, freq: 2.6, jitter: 0.18, lineWidth: 2.6 },
-      { color: "#ff6b00", shape: "rolling", speed: 1.3, amp: 0.55, freq: 1.5, jitter: 0.12, lineWidth: 2.6 },
+      { color: "#ffb347", shape: "spike",   speed: 5.8, amp: 0.85, freq: 7.5, jitter: 0.50, lineWidth: 1.6 },
+      { color: "#ff7b3d", shape: "rolling", speed: 2.0, amp: 0.78, freq: 2.0, jitter: 0.28, lineWidth: 2.0 },
+      { color: "#ffd166", shape: "rolling", speed: 2.4, amp: 0.62, freq: 2.6, jitter: 0.18, lineWidth: 1.6 },
+      { color: "#ff8c00", shape: "rolling", speed: 1.5, amp: 0.55, freq: 1.6, jitter: 0.12, lineWidth: 1.6 },
     ],
   },
   {
     name: "1990s",
     img: "https://res.cloudinary.com/dyvgrd762/image/upload/q_auto/f_auto/v1768739331/1990s_Square",
     stems: [
-      { color: "#c084fc", shape: "spike",   speed: 2.4, amp: 0.85, freq: 3.4, jitter: 0.12, lineWidth: 2.6 },
-      { color: "#3b82f6", shape: "rolling", speed: 1.0, amp: 0.95, freq: 1.0, jitter: 0.36, lineWidth: 5.2 },
-      { color: "#a78bfa", shape: "rolling", speed: 1.4, amp: 0.6,  freq: 1.7, jitter: 0.08, lineWidth: 2.4 },
-      { color: "#60a5fa", shape: "rolling", speed: 0.8, amp: 0.5,  freq: 1.2, jitter: 0.06, lineWidth: 2.4 },
+      { color: "#c084fc", shape: "spike",   speed: 2.8, amp: 0.85, freq: 3.6, jitter: 0.14, lineWidth: 1.6 },
+      { color: "#60a5fa", shape: "rolling", speed: 1.4, amp: 0.92, freq: 1.4, jitter: 0.30, lineWidth: 2.2 },
+      { color: "#a78bfa", shape: "rolling", speed: 1.8, amp: 0.65, freq: 2.0, jitter: 0.10, lineWidth: 1.6 },
+      { color: "#818cf8", shape: "rolling", speed: 1.1, amp: 0.55, freq: 1.4, jitter: 0.08, lineWidth: 1.6 },
     ],
   },
   {
     name: "Rap & Hip-Hop",
     img: "https://res.cloudinary.com/dyvgrd762/image/upload/q_auto/f_auto/v1768739331/RapHipHop_Square",
     stems: [
-      { color: "#39ff14", shape: "spike",   speed: 11,  amp: 0.98, freq: 18,  jitter: 0.06, lineWidth: 2 },
-      { color: "#fde047", shape: "spike",   speed: 7.5, amp: 0.7,  freq: 11,  jitter: 0.05, lineWidth: 1.8 },
-      { color: "#86efac", shape: "rolling", speed: 1.6, amp: 0.55, freq: 1.7, jitter: 0,    lineWidth: 2.4 },
-      { color: "#facc15", shape: "rolling", speed: 0.5, amp: 1.0,  freq: 0.6, jitter: 0,    lineWidth: 7 },
+      { color: "#39ff14", shape: "spike",   speed: 11,  amp: 0.92, freq: 18,  jitter: 0.06, lineWidth: 1.5 },
+      { color: "#fde047", shape: "spike",   speed: 7.5, amp: 0.7,  freq: 11,  jitter: 0.05, lineWidth: 1.4 },
+      { color: "#86efac", shape: "rolling", speed: 2.0, amp: 0.6,  freq: 2.0, jitter: 0.02, lineWidth: 1.6 },
+      { color: "#facc15", shape: "rolling", speed: 0.7, amp: 0.95, freq: 0.7, jitter: 0,    lineWidth: 2.6 },
     ],
   },
   {
     name: "Love is in the Air",
     img: "https://res.cloudinary.com/dyvgrd762/image/upload/q_auto/f_auto/v1768739331/LoveisIntheAir_Square",
     stems: [
-      { color: "#ff6b9a", shape: "smooth", speed: 1.0, amp: 0.65, freq: 1.1, jitter: 0, lineWidth: 3.4 },
-      { color: "#ff8fa3", shape: "smooth", speed: 0.8, amp: 0.6,  freq: 0.9, jitter: 0, lineWidth: 3.4 },
-      { color: "#ff4d6d", shape: "smooth", speed: 0.6, amp: 0.55, freq: 0.7, jitter: 0, lineWidth: 3.4 },
-      { color: "#ffc4d6", shape: "smooth", speed: 0.45, amp: 0.5, freq: 0.5, jitter: 0, lineWidth: 3.4 },
+      { color: "#ff6b9a", shape: "smooth", speed: 1.4, amp: 0.7,  freq: 1.4, jitter: 0.04, lineWidth: 1.6 },
+      { color: "#ff8fa3", shape: "smooth", speed: 1.1, amp: 0.62, freq: 1.1, jitter: 0.02, lineWidth: 1.6 },
+      { color: "#ff4d6d", shape: "rolling", speed: 0.9, amp: 0.6, freq: 0.9, jitter: 0.06, lineWidth: 1.6 },
+      { color: "#ffc4d6", shape: "smooth", speed: 0.7, amp: 0.55, freq: 0.7, jitter: 0,    lineWidth: 1.6 },
     ],
   },
   {
     name: "EDM",
     img: "https://res.cloudinary.com/dyvgrd762/image/upload/q_auto/f_auto/v1768739331/EDM_Square",
     stems: [
-      { color: "#22d3ee", shape: "jagged", speed: 9.5, amp: 0.98, freq: 14, jitter: 0.22, lineWidth: 2.4 },
-      { color: "#f0abfc", shape: "spike",  speed: 8.0, amp: 0.92, freq: 11, jitter: 0.18, lineWidth: 2.4 },
-      { color: "#38bdf8", shape: "jagged", speed: 6.5, amp: 0.9,  freq: 9,  jitter: 0.12, lineWidth: 2.4 },
-      { color: "#ec4899", shape: "spike",  speed: 5.0, amp: 0.96, freq: 6,  jitter: 0.06, lineWidth: 3.4 },
+      { color: "#22d3ee", shape: "jagged", speed: 10,  amp: 0.95, freq: 14, jitter: 0.22, lineWidth: 1.6 },
+      { color: "#f0abfc", shape: "spike",  speed: 8.5, amp: 0.9,  freq: 11, jitter: 0.18, lineWidth: 1.6 },
+      { color: "#38bdf8", shape: "jagged", speed: 7.0, amp: 0.88, freq: 9,  jitter: 0.12, lineWidth: 1.6 },
+      { color: "#ec4899", shape: "spike",  speed: 5.5, amp: 0.92, freq: 6.5, jitter: 0.06, lineWidth: 1.8 },
     ],
   },
 ];
@@ -124,24 +124,32 @@ function drawWaves(
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    // outer halo
+    // wide soft halo
     ctx.shadowColor = stem.color;
-    ctx.shadowBlur = 32;
+    ctx.shadowBlur = 28;
     ctx.strokeStyle = stem.color;
-    ctx.lineWidth = stem.lineWidth * 2.6;
-    ctx.globalAlpha = 0.28;
+    ctx.lineWidth = stem.lineWidth * 3.2;
+    ctx.globalAlpha = 0.18;
     ctx.stroke();
 
     // mid glow
-    ctx.shadowBlur = 18;
-    ctx.lineWidth = stem.lineWidth * 1.4;
-    ctx.globalAlpha = 0.55;
+    ctx.shadowBlur = 16;
+    ctx.lineWidth = stem.lineWidth * 1.6;
+    ctx.globalAlpha = 0.45;
     ctx.stroke();
 
-    // bright core
-    ctx.shadowBlur = 8;
+    // crisp core
+    ctx.shadowBlur = 6;
     ctx.lineWidth = stem.lineWidth;
     ctx.globalAlpha = 1;
+    ctx.strokeStyle = "#ffffff";
+    ctx.stroke();
+
+    // tinted overlay on top to keep hue
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = stem.lineWidth;
+    ctx.globalAlpha = 0.55;
+    ctx.strokeStyle = stem.color;
     ctx.stroke();
   });
 
@@ -179,6 +187,23 @@ export default function Reveal() {
     calc();
     window.addEventListener("resize", calc);
     return () => window.removeEventListener("resize", calc);
+  }, []);
+
+  // pause rendering when section offscreen
+  const visibleRef = useRef(true);
+  useEffect(() => {
+    const sec = sectionRef.current;
+    if (!sec) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          visibleRef.current = e.isIntersecting;
+        });
+      },
+      { rootMargin: "200px" }
+    );
+    obs.observe(sec);
+    return () => obs.disconnect();
   }, []);
 
   useEffect(() => {
@@ -249,16 +274,18 @@ export default function Reveal() {
         });
       }
 
-      canvasRefs.current.forEach((c, i) => {
-        if (!c) return;
-        const ctx = c.getContext("2d");
-        if (!ctx) return;
-        const r = c.getBoundingClientRect();
-        if (r.width <= 0 || r.height <= 0) return;
-        if (r.right < 0 || r.left > window.innerWidth) return; // skip offscreen
-        const stems = ITEMS[i % ITEMS.length].stems;
-        drawWaves(ctx, r.width, r.height, t, stems);
-      });
+      if (visibleRef.current) {
+        canvasRefs.current.forEach((c, i) => {
+          if (!c) return;
+          const ctx = c.getContext("2d");
+          if (!ctx) return;
+          const r = c.getBoundingClientRect();
+          if (r.width <= 0 || r.height <= 0) return;
+          if (r.right < 0 || r.left > window.innerWidth) return; // skip offscreen
+          const stems = ITEMS[i % ITEMS.length].stems;
+          drawWaves(ctx, r.width, r.height, t, stems);
+        });
+      }
 
       raf = requestAnimationFrame(tick);
     };
@@ -294,14 +321,11 @@ export default function Reveal() {
 
   return (
     <section className="relative py-24 md:py-32 bg-black overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 text-center mb-16">
-        <h2 className="text-4xl md:text-7xl font-extrabold tracking-tighter mb-6 leading-[1.05]">
+      <div className="max-w-7xl mx-auto px-6 text-center mb-12 md:mb-16">
+        <h2 className="text-4xl md:text-7xl font-extrabold tracking-tighter leading-[1.05]">
           We strip the song down to <br />
           <span className="gradient-text">drums, bass, synth.</span>
         </h2>
-        <p className="text-lg md:text-2xl text-white/50 font-light max-w-3xl mx-auto">
-          Cover on the left. Stems on the right. Drag to scan through.
-        </p>
       </div>
 
       <div

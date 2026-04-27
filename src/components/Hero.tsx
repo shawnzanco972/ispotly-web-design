@@ -1,40 +1,9 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Play, ArrowRight, Sparkles } from "lucide-react";
 import { AppStoreButton, GooglePlayButton } from "./AppStoreButtons";
-
-type Star = { id: number; size: number; x: number; y: number; duration: number; delay: number; opacity: number };
-
-const StarField = () => {
-  const [stars, setStars] = useState<Star[]>([]);
-  useEffect(() => {
-    setStars(
-      Array.from({ length: 90 }).map((_, i) => ({
-        id: i,
-        size: Math.random() * 2 + 1,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        duration: 10 + Math.random() * 20,
-        delay: Math.random() * -20,
-        opacity: 0.1 + Math.random() * 0.5,
-      }))
-    );
-  }, []);
-  return (
-    <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
-      {stars.map((s) => (
-        <motion.div
-          key={s.id}
-          className="absolute rounded-full bg-white"
-          style={{ width: s.size, height: s.size, left: `${s.x}%`, top: `${s.y}%`, opacity: s.opacity }}
-          animate={{ opacity: [s.opacity, s.opacity * 2, s.opacity], y: [0, -20, 0] }}
-          transition={{ duration: s.duration, repeat: Infinity, ease: "linear", delay: s.delay }}
-        />
-      ))}
-    </div>
-  );
-};
+import NotesField from "./NotesField";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -66,7 +35,7 @@ export default function Hero() {
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(30,15,55,1)_0%,rgba(7,6,13,1)_70%)] z-0" />
       <div className="absolute inset-0 bg-grid z-0 opacity-60" />
-      <StarField />
+      <NotesField count={32} />
 
       <div className="absolute inset-0 z-0 pointer-events-none">
         <motion.div
@@ -105,29 +74,44 @@ export default function Hero() {
             One track. Five instruments. Five minutes of hints. Strip it back to the drums, bass and synth — name the song before the timer does.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
             <a href="https://ispotly.com/daily" className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full blur-[20px] opacity-50 group-hover:opacity-80 transition-all" />
-              <div className="relative px-10 py-5 bg-gradient-to-r from-purple-500 to-orange-500 text-black font-extrabold text-lg rounded-full hover:scale-[1.03] active:scale-95 transition flex items-center gap-3 z-10">
+              <div className="relative px-7 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-purple-500 to-orange-500 text-black font-extrabold text-base sm:text-lg rounded-full hover:scale-[1.03] active:scale-95 transition flex items-center gap-2 sm:gap-3 z-10">
                 <Play className="w-5 h-5 fill-current" />
                 Play Today's Track
               </div>
             </a>
-            <a href="https://ispotly.com/archive" className="px-8 py-5 text-white font-bold text-base rounded-full border border-white/15 hover:bg-white/5 transition flex items-center gap-3 backdrop-blur-sm">
+            <a href="https://ispotly.com/archive" className="px-6 py-4 sm:px-8 sm:py-5 text-white font-bold text-sm sm:text-base rounded-full border border-white/15 hover:bg-white/5 transition flex items-center gap-2 sm:gap-3 backdrop-blur-sm">
               See past dailies
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
 
-          <div className="mt-14 flex items-center justify-center gap-8 text-xs uppercase tracking-[0.3em] text-white/40 font-bold">
-            <span>2000+ packs</span>
-            <span className="w-1 h-1 rounded-full bg-white/30" />
-            <span>Daily challenge</span>
-            <span className="w-1 h-1 rounded-full bg-white/30" />
-            <span>Free to play</span>
+          {/* stats — mobile stacked, each word on its own line; desktop single row */}
+          <div className="mt-10 sm:mt-14 max-w-xs sm:max-w-none mx-auto grid grid-cols-3 gap-2 sm:flex sm:items-center sm:justify-center sm:gap-8 text-[10px] sm:text-xs uppercase tracking-[0.22em] sm:tracking-[0.3em] text-white/40 font-bold leading-[1.2]">
+            <span className="text-center sm:text-left flex flex-col sm:block">
+              <span className="sm:inline">2000+</span>
+              <span className="sm:inline sm:ml-1">packs</span>
+            </span>
+            <span className="hidden sm:block w-1 h-1 rounded-full bg-white/30" />
+            <span className="text-center sm:text-left flex flex-col sm:block">
+              <span className="sm:inline">Daily</span>
+              <span className="sm:inline sm:ml-1">challenge</span>
+            </span>
+            <span className="hidden sm:block w-1 h-1 rounded-full bg-white/30" />
+            <span className="text-center sm:text-left flex flex-col sm:block">
+              <span className="sm:inline">Free</span>
+              <span className="sm:inline sm:ml-1">to&nbsp;play</span>
+            </span>
           </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          {/* store buttons — always horizontal, smaller on mobile */}
+          <div className="mt-6 sm:mt-8 flex sm:hidden items-center justify-center gap-2">
+            <AppStoreButton size="sm" />
+            <GooglePlayButton size="sm" />
+          </div>
+          <div className="mt-8 hidden sm:flex items-center justify-center gap-3">
             <AppStoreButton size="md" />
             <GooglePlayButton size="md" />
           </div>
