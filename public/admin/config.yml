@@ -6,7 +6,7 @@ backend:
   name: github
   repo: shawnzanco972/ispotly-web-design
   branch: main
-  base_url: https://YOUR_DOMAIN
+  base_url: https://ispotly-web-design.vercel.app
   auth_endpoint: api/auth
 
 # Allow `npx decap-server` for local CMS preview without OAuth
