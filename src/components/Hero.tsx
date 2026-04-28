@@ -5,7 +5,33 @@ import { Play, ArrowRight, Sparkles } from "lucide-react";
 import { AppStoreButton, GooglePlayButton } from "./AppStoreButtons";
 import NotesField from "./NotesField";
 
-export default function Hero() {
+export type HeroContent = {
+  heroBadge: string;
+  heroLine1: string;
+  heroLine2: string;
+  heroLine3: string;
+  heroSubtitle: string;
+  ctaPrimary: string;
+  ctaPrimaryUrl: string;
+  ctaSecondary: string;
+  ctaSecondaryUrl: string;
+};
+
+const HERO_DEFAULT: HeroContent = {
+  heroBadge: "Daily song challenge",
+  heroLine1: "GUESS",
+  heroLine2: "THE SONG.",
+  heroLine3: "BEAT THE DAILY.",
+  heroSubtitle:
+    "One track. Five instruments. Five minutes of hints. Strip it back to the drums, bass and synth — name the song before the timer does.",
+  ctaPrimary: "Play Today's Track",
+  ctaPrimaryUrl: "https://ispotly.com/daily",
+  ctaSecondary: "See past dailies",
+  ctaSecondaryUrl: "https://ispotly.com/archive",
+};
+
+export default function Hero({ content }: { content?: Partial<HeroContent> } = {}) {
+  const c: HeroContent = { ...HERO_DEFAULT, ...(content ?? {}) };
   const ref = useRef<HTMLDivElement>(null);
   const [mp, setMp] = useState({ x: 0, y: 0 });
   const { scrollY } = useScroll();
@@ -61,31 +87,31 @@ export default function Hero() {
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }}>
           <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 mb-4 sm:mb-8 rounded-full border border-purple-400/30 bg-purple-500/10 text-purple-300 text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] sm:tracking-[0.25em] backdrop-blur-md">
             <Sparkles className="w-3 h-3 fill-current" />
-            Daily song challenge
+            {c.heroBadge}
           </span>
 
           <h1 className="text-[44px] leading-[0.9] sm:text-6xl md:text-[120px] sm:leading-[0.85] font-extrabold tracking-tighter mb-4 sm:mb-8 text-white">
-            <span className="block sm:inline">GUESS</span>
+            <span className="block sm:inline">{c.heroLine1}</span>
             <span className="hidden sm:inline"> </span>
-            <span className="gradient-text"> THE SONG.</span>{" "}
+            <span className="gradient-text"> {c.heroLine2}</span>{" "}
             <br />
-            <span className="text-white/90">BEAT THE DAILY.</span>
+            <span className="text-white/90">{c.heroLine3}</span>
           </h1>
 
           <p className="text-sm sm:text-lg md:text-2xl text-[color:var(--color-mute)] max-w-2xl mx-auto mb-5 sm:mb-12 font-light leading-relaxed">
-            One track. Five instruments. Strip it back to the drums, bass and synth — name the song before the timer does.
+            {c.heroSubtitle}
           </p>
 
           <div className="flex flex-row items-center justify-center gap-2 sm:gap-5">
-            <a href="https://ispotly.com/daily" className="relative group">
+            <a href={c.ctaPrimaryUrl} className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full blur-[20px] opacity-50 group-hover:opacity-80 transition-all" />
               <div className="relative px-5 py-3 sm:px-10 sm:py-5 bg-gradient-to-r from-purple-500 to-orange-500 text-black font-extrabold text-sm sm:text-lg rounded-full hover:scale-[1.03] active:scale-95 transition flex items-center gap-2 sm:gap-3 z-10 whitespace-nowrap">
                 <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
-                Play Today
+                {c.ctaPrimary}
               </div>
             </a>
-            <a href="https://ispotly.com/archive" className="px-4 py-3 sm:px-8 sm:py-5 text-white font-bold text-sm sm:text-base rounded-full border border-white/15 hover:bg-white/5 transition flex items-center gap-2 sm:gap-3 backdrop-blur-sm whitespace-nowrap">
-              See past dailies
+            <a href={c.ctaSecondaryUrl} className="px-4 py-3 sm:px-8 sm:py-5 text-white font-bold text-sm sm:text-base rounded-full border border-white/15 hover:bg-white/5 transition flex items-center gap-2 sm:gap-3 backdrop-blur-sm whitespace-nowrap">
+              {c.ctaSecondary}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>

@@ -11,12 +11,23 @@ import DownloadCTA from "@/components/DownloadCTA";
 import FAQ from "@/components/FAQ";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
+import { getHome, getFaq } from "@/lib/pages";
 
 export default function Home() {
+  const home = getHome();
+  const faq = getFaq();
+  const jsonLd = home.seo?.schemaJsonLd?.trim();
+
   return (
     <main className="relative">
+      {jsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+      ) : null}
       <Navbar />
-      <Hero />
+      <Hero content={home} />
       <Reveal />
       <QuickPlay />
       <FreePlayPicks />
@@ -25,7 +36,7 @@ export default function Home() {
       <UGC />
       <Collab />
       <DownloadCTA />
-      <FAQ />
+      <FAQ title={faq.title} items={faq.items} />
       <Blog />
       <Footer />
     </main>

@@ -3,7 +3,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 
-const faqs = [
+export type FaqItem = { q: string; a: string };
+
+const DEFAULT_TITLE = "Everything you'd ask anyway.";
+const DEFAULT_ITEMS: FaqItem[] = [
   {
     q: "How does iSpotly work?",
     a: "Each round picks a track and splits it into 5 stems — drums, bass, synth, choir, vocal. You hear them one at a time. Guess the song with as few stems and hints as possible to bank max XP.",
@@ -30,7 +33,16 @@ const faqs = [
   },
 ];
 
-export default function FAQ() {
+export default function FAQ({
+  title,
+  items,
+}: {
+  title?: string;
+  items?: FaqItem[];
+} = {}) {
+  const heading = title || DEFAULT_TITLE;
+  const list = items && items.length > 0 ? items : DEFAULT_ITEMS;
+
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section id="faq" className="relative py-32 bg-[#07060d] overflow-hidden">
@@ -39,12 +51,23 @@ export default function FAQ() {
         <div className="text-center mb-14">
           <span className="inline-block text-purple-400 font-bold tracking-[0.25em] uppercase mb-4 text-xs">FAQ</span>
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter">
-            Everything you'd <span className="gradient-text">ask anyway.</span>
+            {(() => {
+              const parts = heading.split(" ");
+              if (parts.length <= 2) return <span className="gradient-text">{heading}</span>;
+              const tail = parts.slice(-2).join(" ");
+              const head = parts.slice(0, -2).join(" ");
+              return (
+                <>
+                  {head}{" "}
+                  <span className="gradient-text">{tail}</span>
+                </>
+              );
+            })()}
           </h2>
         </div>
 
         <div className="space-y-3">
-          {faqs.map((f, i) => {
+          {list.map((f, i) => {
             const isOpen = open === i;
             return (
               <motion.div

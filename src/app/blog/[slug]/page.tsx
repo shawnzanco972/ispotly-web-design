@@ -14,14 +14,25 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return { title: "Post not found" };
+  const seo = post.seo;
+  const title = seo?.metaTitle?.trim() || `${post.title} — iSpotly`;
+  const description = seo?.metaDescription?.trim() || post.description;
+  const ogImage = seo?.ogImage?.trim() || post.cover;
   return {
-    title: `${post.title} — iSpotly`,
-    description: post.description,
+    title,
+    description,
     openGraph: {
-      title: post.title,
-      description: post.description,
+      title,
+      description,
       type: "article",
       authors: [post.author],
+      images: ogImage ? [ogImage] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }
@@ -33,8 +44,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const others = posts.filter((p) => p.slug !== slug).slice(0, 2);
 
+  const jsonLd = post.seo?.schemaJsonLd?.trim();
+
   return (
     <main className="relative bg-[#07060d] min-h-screen">
+      {jsonLd ? (
+        <script
+          type="application/ld+json"
+          // CMS-managed raw JSON-LD; trust the editor.
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+      ) : null}
       <Navbar />
 
       <article className="relative pt-32 pb-20 px-6">
@@ -63,7 +83,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {post.description}
           </p>
 
-          <div className={`relative w-full aspect-[16/8] rounded-3xl overflow-hidden border border-white/10 mb-12 bg-gradient-to-br ${post.grad}`}>
+          <div className={`relative w-full aspect-[16/8] rounded-3xl overflow-hidden border border-white/10 mb-12 bg-gradient-to-br ${post.gradient}`}>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.4),transparent_60%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(0,0,0,0.5),transparent_70%)]" />
           </div>
@@ -99,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   href={`/blog/${p.slug}`}
                   className="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] flex flex-col"
                 >
-                  <div className={`relative aspect-[4/3] bg-gradient-to-br ${p.grad}`}>
+                  <div className={`relative aspect-[4/3] bg-gradient-to-br ${p.gradient}`}>
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.35),transparent_60%)]" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(0,0,0,0.45),transparent_70%)]" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-between">
