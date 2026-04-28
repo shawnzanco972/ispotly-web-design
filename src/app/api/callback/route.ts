@@ -41,59 +41,56 @@ export async function GET(req: NextRequest) {
         code,
       }),
     });
+
     const json = (await tokenRes.json()) as {
       access_token?: string;
       error?: string;
       error_description?: string;
     };
+
     token = json.access_token;
     if (!token) errorMessage = json.error_description || json.error || "no_token";
   } catch (err) {
     errorMessage = err instanceof Error ? err.message : "fetch_failed";
   }
 
-  // Build the response Decap expects: a tiny page that postMessages the result.
-  // Decap parses messages of the shape `authorization:github:<status>:<jsonObject>`
-  // — the trailing part must be a JSON object literal, not a JSON-encoded string.
-  const status = token ? "success" : "error";
-  const payloadObj = token
-    ? { token, provider: "github" }
-    : { message: errorMessage || "unknown_error" };
-  const message = `authorization:github:${status}:${JSON.stringify(payloadObj)}`;
+  // If we failed to get a token, show an error on the screen.
+  if (!token) {
+    return new NextResponse(`Authentication failed: ${errorMessage}`, { status: 400 });
+  }
 
+  // Build the exact HTML response Decap CMS expects to close the loop securely.
   const html = `<!doctype html>
-<html><head><meta charset="utf-8" /><title>iSpotly · OAuth</title></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>iSpotly · OAuth Success</title>
+</head>
 <body style="font-family:system-ui;background:#07060d;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0">
-  <p>Authentication ${status === "success" ? "successful" : "failed"}. You can close this window.</p>
+  <p>Authentication successful. Redirecting...</p>
   <script>
-    (function () {
-      var msg = ${JSON.stringify(message)};
-      function send() {
-        if (window.opener) {
-          window.opener.postMessage(msg, window.location.origin);
-          window.opener.postMessage(msg, '*');
-        }
+    (function() {
+      if (window.opener) {
+        // Send the token back to the exact Decap CMS domain format
+        window.opener.postMessage(
+          'authorization:github:success:{"token":"${token}","provider":"github"}',
+          'https://ispotly-web-design.vercel.app'
+        );
       }
-      window.addEventListener('message', function (e) {
-        if (typeof e.data === 'string' && e.data.indexOf('authorizing:github') === 0) send();
-      }, false);
-      // Decap listens for the page handshake; reply on every tick until it picks it up.
-      send();
-      var tries = 0;
-      var iv = setInterval(function () {
-        send();
-        if (++tries > 20) clearInterval(iv);
-      }, 250);
-      setTimeout(function () { try { window.close(); } catch (e) {} }, 6000);
+      // Close the popup window immediately after sending the message
+      window.close();
     })();
   </script>
-</body></html>`;
+</body>
+</html>`;
 
   const res = new NextResponse(html, {
-    status: token ? 200 : 400,
+    status: 200,
     headers: { "Content-Type": "text/html; charset=utf-8" },
   });
-  // wipe the state cookie
+
+  // Wipe the state cookie for security
   res.cookies.set("decap_oauth_state", "", { httpOnly: true, path: "/", maxAge: 0 });
+
   return res;
 }
