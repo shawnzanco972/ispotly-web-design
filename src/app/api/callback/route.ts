@@ -52,11 +52,14 @@ export async function GET(req: NextRequest) {
     errorMessage = err instanceof Error ? err.message : "fetch_failed";
   }
 
-  // Build the response Decap expects: a tiny page that postMessages the result
+  // Build the response Decap expects: a tiny page that postMessages the result.
+  // Decap parses messages of the shape `authorization:github:<status>:<jsonObject>`
+  // — the trailing part must be a JSON object literal, not a JSON-encoded string.
   const status = token ? "success" : "error";
-  const payload = token
-    ? JSON.stringify({ token, provider: "github" })
-    : JSON.stringify({ message: errorMessage || "unknown_error" });
+  const payloadObj = token
+    ? { token, provider: "github" }
+    : { message: errorMessage || "unknown_error" };
+  const message = `authorization:github:${status}:${JSON.stringify(payloadObj)}`;
 
   const html = `<!doctype html>
 <html><head><meta charset="utf-8" /><title>iSpotly · OAuth</title></head>
@@ -64,17 +67,24 @@ export async function GET(req: NextRequest) {
   <p>Authentication ${status === "success" ? "successful" : "failed"}. You can close this window.</p>
   <script>
     (function () {
-      var msg = 'authorization:github:${status}:' + ${JSON.stringify(payload)};
+      var msg = ${JSON.stringify(message)};
       function send() {
         if (window.opener) {
+          window.opener.postMessage(msg, window.location.origin);
           window.opener.postMessage(msg, '*');
         }
       }
       window.addEventListener('message', function (e) {
-        if (e.data === 'authorizing:github') send();
+        if (typeof e.data === 'string' && e.data.indexOf('authorizing:github') === 0) send();
       }, false);
+      // Decap listens for the page handshake; reply on every tick until it picks it up.
       send();
-      setTimeout(function () { window.close(); }, 1500);
+      var tries = 0;
+      var iv = setInterval(function () {
+        send();
+        if (++tries > 20) clearInterval(iv);
+      }, 250);
+      setTimeout(function () { try { window.close(); } catch (e) {} }, 6000);
     })();
   </script>
 </body></html>`;
