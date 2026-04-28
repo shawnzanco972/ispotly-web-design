@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get('code');
@@ -29,6 +30,8 @@ export async function GET(req: NextRequest) {
 
   if (!token) return new NextResponse('Authentication failed.', { status: 400 });
 
+  const payloadString = JSON.stringify({ token: token, provider: 'github' });
+
   const html = `<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8" /><title>OAuth Success</title></head>
@@ -36,7 +39,8 @@ export async function GET(req: NextRequest) {
   <p>Authentication successful. Closing...</p>
   <script>
     (function() {
-      var msg = 'authorization:github:success:{"token":"${token}","provider":"github"}';
+      // Safely inject the JSON string without template literal escaping bugs
+      var msg = 'authorization:github:success:' + '${payloadString}';
       var targetOrigin = 'https://ispotly-web-design.vercel.app';
 
       function sendToken() {
