@@ -56,13 +56,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* center wordmark / game tag — only when scrolled */}
-          {scrolled && (
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center gap-2 pointer-events-none">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/50">The daily song game</span>
-            </div>
-          )}
-
           <div className="hidden md:flex items-center gap-7">
             {links.map((l) => (
               <a

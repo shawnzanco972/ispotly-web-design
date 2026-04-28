@@ -1,0 +1,160 @@
+# Decap CMS configuration for iSpotly
+# Replace YOUR_DOMAIN below (or set DECAP_BASE_URL via the deployed site origin)
+# and confirm `repo:` matches the live GitHub repository.
+
+backend:
+  name: github
+  repo: shawnzanco972/ispotly-web-design
+  branch: main
+  base_url: https://YOUR_DOMAIN
+  auth_endpoint: api/auth
+
+# Allow `npx decap-server` for local CMS preview without OAuth
+local_backend: true
+
+site_url: https://ispotly.com
+display_url: https://ispotly.com
+logo_url: https://ispotly.com/ispotly_logo_transperant.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+publish_mode: editorial_workflow
+
+# ---------- Reusable SEO field group ----------
+# (Decap supports YAML anchors via the !include trick at runtime,
+#  but for clarity we duplicate the block below — every entry has it.)
+
+collections:
+  # ============== BLOG POSTS ==============
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: content/blog
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{tag}}"
+    sortable_fields: [date, title]
+    view_filters:
+      - label: Drafts
+        field: draft
+        pattern: true
+    fields:
+      - { name: title,       label: Title,             widget: string }
+      - { name: slug,        label: URL slug,          widget: string, hint: "Used in /blog/<slug>" }
+      - { name: description, label: Short description, widget: text }
+      - { name: tag,         label: Tag,               widget: string, default: "Pop culture" }
+      - { name: date,        label: Publish date,      widget: datetime }
+      - { name: author,      label: Author,            widget: string, default: "iSpotly studio" }
+      - { name: readMin,     label: Read time (min),   widget: number, default: 5, value_type: int, min: 1, max: 60 }
+      - name: cover
+        label: Cover image
+        widget: image
+        required: false
+        hint: "Used as the article hero and as the OG fallback."
+      - { name: gradient, label: Card gradient (Tailwind classes), widget: string, default: "from-purple-600 via-fuchsia-600 to-pink-500" }
+      - { name: draft, label: Draft, widget: boolean, default: false }
+      - { name: body,  label: Body,  widget: markdown }
+
+      - label: SEO
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - { name: metaTitle,       label: Meta title,        widget: string, required: false, hint: "Falls back to article title if empty." }
+          - { name: metaDescription, label: Meta description,  widget: text,   required: false, pattern: ['.{0,160}$', "Keep under 160 characters"] }
+          - { name: ogImage,         label: Open Graph image,  widget: image,  required: false, hint: "1200×630 recommended. Falls back to cover image." }
+          - name: schemaJsonLd
+            label: Schema.org JSON-LD
+            widget: text
+            required: false
+            hint: "Paste valid JSON-LD. Will be injected as <script type='application/ld+json'> in <head>."
+
+  # ============== VIDEO FEED ==============
+  - name: feed
+    label: Video Feed
+    label_singular: Feed item
+    folder: content/feed
+    create: true
+    slug: "{{platform}}-{{slug}}"
+    summary: "{{title}} ({{platform}})"
+    sortable_fields: [order, title]
+    fields:
+      - { name: title,    label: Caption,        widget: string }
+      - { name: platform, label: Platform,       widget: select, options: ["tiktok", "instagram"] }
+      - { name: videoId,  label: TikTok video ID,        widget: string, required: false, hint: "Numeric ID at the end of the TikTok URL." }
+      - { name: shortcode,label: Instagram shortcode,    widget: string, required: false, hint: "The /p/<code>/ part of the IG URL." }
+      - { name: url,      label: Original URL,   widget: string }
+      - { name: handle,   label: Handle (no @),  widget: string, default: "ispotly.com" }
+      - { name: tint,     label: Card gradient (Tailwind classes), widget: string, default: "from-fuchsia-600 via-pink-600 to-rose-500" }
+      - { name: order,    label: Display order,  widget: number, default: 0, value_type: int }
+      - { name: pinned,   label: Pinned,         widget: boolean, default: false }
+
+  # ============== MAIN PAGES ==============
+  - name: pages
+    label: Main Pages
+    label_singular: Page
+    files:
+      - file: content/pages/home.md
+        name: home
+        label: Homepage
+        fields:
+          - { name: heroBadge,    label: Hero badge,            widget: string, default: "Daily song challenge" }
+          - { name: heroLine1,    label: Headline line 1,       widget: string, default: "GUESS" }
+          - { name: heroLine2,    label: Headline line 2 (gradient), widget: string, default: "THE SONG." }
+          - { name: heroLine3,    label: Headline line 3,       widget: string, default: "BEAT THE DAILY." }
+          - { name: heroSubtitle, label: Hero subtitle,         widget: text }
+          - { name: ctaPrimary,   label: Primary CTA text,      widget: string, default: "Play Today" }
+          - { name: ctaPrimaryUrl,label: Primary CTA URL,       widget: string, default: "https://ispotly.com/daily" }
+          - { name: ctaSecondary, label: Secondary CTA text,    widget: string, default: "See past dailies" }
+          - { name: ctaSecondaryUrl, label: Secondary CTA URL,  widget: string, default: "https://ispotly.com/archive" }
+          - label: SEO
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { name: metaTitle,       label: Meta title,        widget: string }
+              - { name: metaDescription, label: Meta description,  widget: text }
+              - { name: ogImage,         label: OG image,          widget: image,  required: false }
+              - name: schemaJsonLd
+                label: Schema.org JSON-LD
+                widget: text
+                required: false
+                hint: "Paste valid JSON-LD. Injected as <script type='application/ld+json'>."
+
+      - file: content/pages/blog-index.md
+        name: blogIndex
+        label: Blog index
+        fields:
+          - { name: title,    label: Title,    widget: string, default: "From the studio." }
+          - { name: subtitle, label: Subtitle, widget: text }
+          - label: SEO
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { name: metaTitle,       label: Meta title,        widget: string }
+              - { name: metaDescription, label: Meta description,  widget: text }
+              - { name: ogImage,         label: OG image,          widget: image,  required: false }
+              - { name: schemaJsonLd,    label: Schema.org JSON-LD, widget: text,   required: false }
+
+      - file: content/pages/faq.md
+        name: faq
+        label: FAQ section
+        fields:
+          - { name: title,    label: Section title, widget: string, default: "Everything you'd ask anyway." }
+          - name: items
+            label: FAQ items
+            widget: list
+            fields:
+              - { name: q, label: Question, widget: string }
+              - { name: a, label: Answer,   widget: text }
+          - label: SEO
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { name: metaTitle,       label: Meta title,        widget: string, required: false }
+              - { name: metaDescription, label: Meta description,  widget: text,   required: false }
+              - { name: ogImage,         label: OG image,          widget: image,  required: false }
+              - { name: schemaJsonLd,    label: Schema.org JSON-LD, widget: text,   required: false }
