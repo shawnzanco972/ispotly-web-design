@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Instagram, Facebook } from "lucide-react";
 
 const TikTokIcon = ({ className = "" }: { className?: string }) => (
@@ -18,12 +19,15 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
           <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://ispotly.com/ispotly_logo_transperant.png"
-              alt="iSpotly"
-              className="h-10 w-auto mb-6"
-            />
+            <Link href="/" className="flex items-center gap-2 mb-6 group w-fit">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://ispotly.com/ispotly_logo_transperant.png"
+                alt="iSpotly"
+                className="h-10 w-auto group-hover:scale-105 transition"
+              />
+              <span className="text-2xl font-extrabold tracking-tight text-white">iSpotly</span>
+            </Link>
             <p className="text-[color:var(--color-mute)] font-light leading-relaxed mb-6">
               The daily song guessing game. Five stems. One track. One shot.
             </p>
@@ -44,20 +48,20 @@ export default function Footer() {
           </div>
 
           {[
+            { title: "Site", links: [
+              { l: "Home", h: "/" },
+              { l: "Archive", h: "/#archive" },
+              { l: "Feed", h: "/#ugc" },
+              { l: "FAQ", h: "/#faq" },
+              { l: "Blog", h: "/blog" },
+            ]},
             { title: "Play", links: [
               { l: "Daily Game", h: "https://ispotly.com/daily" },
               { l: "Free Play", h: "https://ispotly.com/free-play" },
               { l: "Random Play", h: "https://ispotly.com/random-play?from=%2F&gameType=random" },
-              { l: "Archive", h: "https://ispotly.com/archive" },
-            ]},
-            { title: "Packs", links: [
-              { l: "Classics Mix", h: "https://ispotly.com/pack/1" },
-              { l: "Rap & Hip-Hop", h: "https://ispotly.com/pack/13" },
-              { l: "Classic Rock", h: "https://ispotly.com/pack/11" },
-              { l: "EDM", h: "https://ispotly.com/pack/25" },
+              { l: "Past dailies", h: "https://ispotly.com/archive" },
             ]},
             { title: "Studio", links: [
-              { l: "Blog", h: "#blog" },
               { l: "Collabs", h: "mailto:hello@ispotly.com" },
               { l: "Contact", h: "mailto:hello@ispotly.com" },
               { l: "Privacy", h: "#" },

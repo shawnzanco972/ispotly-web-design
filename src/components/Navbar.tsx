@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Instagram, Facebook } from "lucide-react";
 
@@ -17,10 +18,10 @@ const socials = [
 
 const links = [
   { label: "Play online", href: "https://ispotly.com/daily", external: true },
-  { label: "Archive", href: "#archive" },
-  { label: "Feed", href: "#ugc" },
-  { label: "Blog", href: "#blog" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Archive", href: "/#archive" },
+  { label: "Feed", href: "/#ugc" },
+  { label: "Blog", href: "/blog" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar() {
@@ -42,17 +43,27 @@ export default function Navbar() {
             : "top-0 px-6 py-5 bg-transparent"
         }`}
       >
-        <div className={`flex items-center justify-between ${scrolled ? "px-6 py-3" : "max-w-7xl mx-auto"}`}>
-          <a href="#" className="flex items-center gap-2 group">
+        <div className={`relative flex items-center justify-between ${scrolled ? "px-5 py-3" : "max-w-7xl mx-auto"}`}>
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://ispotly.com/ispotly_logo_transperant.png"
               alt="iSpotly"
               className={`transition-all ${scrolled ? "h-8" : "h-10"} w-auto group-hover:scale-105`}
             />
-          </a>
+            <span className={`hidden sm:inline font-extrabold tracking-tight text-white transition-all ${scrolled ? "text-base" : "text-xl"}`}>
+              iSpotly
+            </span>
+          </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          {/* center wordmark / game tag — only when scrolled */}
+          {scrolled && (
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center gap-2 pointer-events-none">
+              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/50">The daily song game</span>
+            </div>
+          )}
+
+          <div className="hidden md:flex items-center gap-7">
             {links.map((l) => (
               <a
                 key={l.href}
@@ -65,7 +76,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="#download"
+              href="/#download"
               className={`bg-gradient-to-r from-purple-500 to-orange-500 text-black font-bold text-sm rounded-full hover:scale-105 transition-all active:scale-95 ${scrolled ? "px-4 py-2" : "px-6 py-2.5"}`}
             >
               Download Now
@@ -107,7 +118,7 @@ export default function Navbar() {
                 </motion.a>
               ))}
               <a
-                href="#download"
+                href="/#download"
                 onClick={() => setOpen(false)}
                 className="mt-4 px-10 py-4 bg-gradient-to-r from-purple-500 to-orange-500 text-black font-bold text-lg rounded-full"
               >

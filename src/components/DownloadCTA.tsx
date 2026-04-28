@@ -70,24 +70,23 @@ export default function DownloadCTA() {
           Pocket the daily challenge. Same packs, same streaks, same XP — synced across every device.
         </p>
 
-        {/* Mobile: 3 compact buttons one line */}
-        <div className="flex sm:hidden items-stretch justify-center gap-2">
-          <AppStoreButton size="sm" />
-          <GooglePlayButton size="sm" />
+        {/* Mobile: stores side-by-side, browser as a thinner row underneath */}
+        <div className="flex flex-col sm:hidden items-stretch gap-2 max-w-sm mx-auto px-2">
+          <div className="grid grid-cols-2 gap-2">
+            <AppStoreButton size="md" fullWidth />
+            <GooglePlayButton size="md" fullWidth />
+          </div>
           <a
             href="https://ispotly.com/free-play"
-            className="inline-flex items-center gap-2 px-3 py-2.5 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition"
+            className="inline-flex items-center justify-center gap-2 py-2 rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition"
           >
-            <Globe className="w-5 h-5 text-white shrink-0" />
-            <div className="text-left leading-tight">
-              <div className="text-[8px] uppercase tracking-widest text-white/60">Play in</div>
-              <div className="text-sm font-bold text-white">Browser</div>
-            </div>
+            <Globe className="w-4 h-4 text-white" />
+            <span className="text-sm font-bold text-white">Or play in browser</span>
           </a>
         </div>
 
         {/* Desktop: full-size buttons */}
-        <div className="hidden sm:flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="hidden sm:flex items-center justify-center gap-4">
           <AppStoreButton size="lg" />
           <GooglePlayButton size="lg" />
           <a

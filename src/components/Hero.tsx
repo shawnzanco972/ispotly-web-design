@@ -31,7 +31,7 @@ export default function Hero() {
     <section
       ref={ref}
       onMouseMove={onMove}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#07060d] pt-28"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#07060d] pt-20 sm:pt-28 pb-8 sm:pb-0"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(30,15,55,1)_0%,rgba(7,6,13,1)_70%)] z-0" />
       <div className="absolute inset-0 bg-grid z-0 opacity-60" />
@@ -59,37 +59,39 @@ export default function Hero() {
         className="relative z-10 container mx-auto px-6 text-center"
       >
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }}>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-purple-400/30 bg-purple-500/10 text-purple-300 text-xs font-bold uppercase tracking-[0.25em] backdrop-blur-md">
+          <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 mb-4 sm:mb-8 rounded-full border border-purple-400/30 bg-purple-500/10 text-purple-300 text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] sm:tracking-[0.25em] backdrop-blur-md">
             <Sparkles className="w-3 h-3 fill-current" />
             Daily song challenge
           </span>
 
-          <h1 className="text-6xl md:text-[120px] font-extrabold leading-[0.85] tracking-tighter mb-8 text-white">
-            GUESS <br />
-            <span className="gradient-text">THE SONG.</span> <br />
+          <h1 className="text-[44px] leading-[0.9] sm:text-6xl md:text-[120px] sm:leading-[0.85] font-extrabold tracking-tighter mb-4 sm:mb-8 text-white">
+            <span className="block sm:inline">GUESS</span>
+            <span className="hidden sm:inline"> </span>
+            <span className="gradient-text"> THE SONG.</span>{" "}
+            <br />
             <span className="text-white/90">BEAT THE DAILY.</span>
           </h1>
 
-          <p className="text-lg md:text-2xl text-[color:var(--color-mute)] max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-            One track. Five instruments. Five minutes of hints. Strip it back to the drums, bass and synth — name the song before the timer does.
+          <p className="text-sm sm:text-lg md:text-2xl text-[color:var(--color-mute)] max-w-2xl mx-auto mb-5 sm:mb-12 font-light leading-relaxed">
+            One track. Five instruments. Strip it back to the drums, bass and synth — name the song before the timer does.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+          <div className="flex flex-row items-center justify-center gap-2 sm:gap-5">
             <a href="https://ispotly.com/daily" className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full blur-[20px] opacity-50 group-hover:opacity-80 transition-all" />
-              <div className="relative px-7 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-purple-500 to-orange-500 text-black font-extrabold text-base sm:text-lg rounded-full hover:scale-[1.03] active:scale-95 transition flex items-center gap-2 sm:gap-3 z-10">
-                <Play className="w-5 h-5 fill-current" />
-                Play Today's Track
+              <div className="relative px-5 py-3 sm:px-10 sm:py-5 bg-gradient-to-r from-purple-500 to-orange-500 text-black font-extrabold text-sm sm:text-lg rounded-full hover:scale-[1.03] active:scale-95 transition flex items-center gap-2 sm:gap-3 z-10 whitespace-nowrap">
+                <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                Play Today
               </div>
             </a>
-            <a href="https://ispotly.com/archive" className="px-6 py-4 sm:px-8 sm:py-5 text-white font-bold text-sm sm:text-base rounded-full border border-white/15 hover:bg-white/5 transition flex items-center gap-2 sm:gap-3 backdrop-blur-sm">
+            <a href="https://ispotly.com/archive" className="px-4 py-3 sm:px-8 sm:py-5 text-white font-bold text-sm sm:text-base rounded-full border border-white/15 hover:bg-white/5 transition flex items-center gap-2 sm:gap-3 backdrop-blur-sm whitespace-nowrap">
               See past dailies
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
 
           {/* stats — mobile stacked, each word on its own line; desktop single row */}
-          <div className="mt-10 sm:mt-14 max-w-xs sm:max-w-none mx-auto grid grid-cols-3 gap-2 sm:flex sm:items-center sm:justify-center sm:gap-8 text-[10px] sm:text-xs uppercase tracking-[0.22em] sm:tracking-[0.3em] text-white/40 font-bold leading-[1.2]">
+          <div className="mt-5 sm:mt-14 max-w-xs sm:max-w-none mx-auto grid grid-cols-3 gap-2 sm:flex sm:items-center sm:justify-center sm:gap-8 text-[9px] sm:text-xs uppercase tracking-[0.22em] sm:tracking-[0.3em] text-white/40 font-bold leading-[1.2]">
             <span className="text-center sm:text-left flex flex-col sm:block">
               <span className="sm:inline">2000+</span>
               <span className="sm:inline sm:ml-1">packs</span>
@@ -107,7 +109,7 @@ export default function Hero() {
           </div>
 
           {/* store buttons — always horizontal, smaller on mobile */}
-          <div className="mt-6 sm:mt-8 flex sm:hidden items-center justify-center gap-2">
+          <div className="mt-4 sm:mt-8 flex sm:hidden items-center justify-center gap-2">
             <AppStoreButton size="sm" />
             <GooglePlayButton size="sm" />
           </div>
