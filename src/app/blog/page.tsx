@@ -36,7 +36,7 @@ export default function BlogIndexPage() {
               href={`/blog/${p.slug}`}
               className={`group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] flex flex-col ${i === 0 ? "md:col-span-2" : ""}`}
             >
-              <div className={`relative ${i === 0 ? "aspect-[16/8]" : "aspect-[4/3]"} bg-gradient-to-br ${p.grad} overflow-hidden`}>
+              <div className={`relative ${i === 0 ? "aspect-[16/8]" : "aspect-[4/3]"} bg-gradient-to-br ${p.gradient} overflow-hidden`}>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.35),transparent_60%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(0,0,0,0.45),transparent_70%)]" />
                 <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
