@@ -26,7 +26,7 @@ export default function QuickPlay() {
 
   return (
     <>
-      <section id="play" className="relative py-24 md:py-32 bg-[#07060d] overflow-hidden">
+      <section id="play" className="relative py-14 md:py-32 bg-[#07060d] overflow-hidden">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="container mx-auto px-6 relative z-10">

@@ -4,9 +4,9 @@
     {
       "name": "ispotly-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": ["run", "dev", "--", "-p", "3001"],
       "cwd": "C:\\Users\\Shawn\\ispotly-web-design",
-      "port": 3000
+      "port": 3001
     }
   ]
 }

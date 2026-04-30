@@ -66,7 +66,7 @@ export default function UGC() {
 
   return (
     <>
-      <section id="ugc" className="relative py-24 md:py-32 bg-[#07060d] overflow-hidden">
+      <section id="ugc" className="relative py-14 md:py-32 bg-[#07060d] overflow-hidden">
         <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-pink-600/15 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="container mx-auto px-6 relative z-10">

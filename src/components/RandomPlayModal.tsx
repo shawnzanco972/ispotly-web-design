@@ -143,10 +143,16 @@ export default function RandomPlayModal({ open, onClose }: Props) {
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0d0a1a] p-6"
           >
+            {/*
+              Daily play count ("X/3 today") and the live catalog size are user/app data.
+              Once Google sign-in is wired through the iSpotly app API, fetch them from:
+                GET /api/me/quota   -> { used, limit }
+                GET /api/catalog/count?<filters>  -> { total }
+              Until then we keep the UI clean rather than show fake numbers.
+            */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <h3 className="text-2xl font-extrabold tracking-tight">Random Song</h3>
-                <span className="px-2.5 py-1 rounded-full bg-white/5 text-xs text-white/60 font-bold">2/3 today</span>
               </div>
               <button onClick={onClose} className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center">
                 <X className="w-5 h-5" />

@@ -320,7 +320,7 @@ export default function Reveal() {
   };
 
   return (
-    <section className="relative py-24 md:py-32 bg-black overflow-hidden">
+    <section className="relative py-14 md:py-32 bg-black overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 text-center mb-12 md:mb-16">
         <h2 className="text-4xl md:text-7xl font-extrabold tracking-tighter leading-[1.05]">
           We strip the song down to <br />
@@ -384,6 +384,15 @@ export default function Reveal() {
           <div className="absolute inset-y-0 -left-[2px] w-[5px] blur-[2px] bg-gradient-to-b from-fuchsia-300 via-pink-300 to-orange-300 opacity-90" />
           <div className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-white to-transparent" />
         </div>
+      </div>
+
+      <div className="relative z-10 flex justify-center mt-10 md:mt-14">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://ispotly.com/ispotly_logo_transperant.png"
+          alt="iSpotly"
+          className="h-12 md:h-16 w-auto opacity-90"
+        />
       </div>
     </section>
   );

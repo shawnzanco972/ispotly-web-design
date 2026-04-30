@@ -4,7 +4,7 @@ import { Sparkles, Mail, ArrowUpRight } from "lucide-react";
 
 export default function Collab() {
   return (
-    <section className="relative py-20 md:py-28 bg-[#07060d] overflow-hidden">
+    <section className="relative py-12 md:py-28 bg-[#07060d] overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

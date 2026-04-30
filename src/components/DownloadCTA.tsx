@@ -13,7 +13,7 @@ const reviews = [
 
 export default function DownloadCTA() {
   return (
-    <section id="download" className="relative min-h-screen flex items-center justify-center py-20 md:py-32 bg-[#07060d] overflow-hidden">
+    <section id="download" className="relative md:min-h-screen flex items-center justify-center py-14 md:py-32 bg-[#07060d] overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-purple-600/20 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-orange-500/15 rounded-full blur-[160px] pointer-events-none" />
 
@@ -44,6 +44,20 @@ export default function DownloadCTA() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-6"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://ispotly.com/ispotly_logo_transperant.png"
+            alt="iSpotly"
+            className="h-16 md:h-24 w-auto"
+          />
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

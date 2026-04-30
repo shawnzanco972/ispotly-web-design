@@ -1,38 +1,62 @@
 "use client";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Crown, ChevronLeft, ChevronRight } from "lucide-react";
 
-type Day = { d: number; status: "won" | "lost" | "unfinished" | "today" | "future" | "empty" };
+type Status = "won" | "lost" | "unfinished" | "today" | "future" | "empty";
+type Day = { d: number; status: Status };
 
-const days: Day[] = [
-  ...Array.from({ length: 4 }, () => ({ d: 0, status: "empty" as const })),
-  ...[1, 2, 3, 4].map((d) => ({ d, status: "future" as const })),
-  ...[5, 6, 7, 8, 9, 10, 11].map((d) => ({ d, status: "future" as const })),
-  ...[12].map((d) => ({ d, status: "future" as const })),
-  ...[13, 14, 15, 16, 17, 18].map((d) => ({ d, status: "won" as const })),
-  { d: 19, status: "won" },
-  ...[20, 21, 22, 23, 24, 25].map((d) => ({ d, status: "lost" as const })),
-  { d: 26, status: "unfinished" },
-  { d: 27, status: "today" },
-  ...[28, 29, 30].map((d) => ({ d, status: "future" as const })),
-];
+// Launch date — earlier than this = empty cells; before today on/after launch = pseudo history.
+const LAUNCH = new Date(Date.UTC(2026, 0, 1)); // Jan 1, 2026
 
-const dot = (s: Day["status"]) => {
-  if (s === "won") return "bg-emerald-400";
-  if (s === "lost") return "bg-rose-400";
-  if (s === "unfinished") return "bg-amber-400";
-  if (s === "today") return "ring-2 ring-purple-400";
-  return "";
-};
+// Deterministic pseudo-status for past days so the demo looks alive without real data.
+function pseudoStatus(year: number, month: number, day: number): Status {
+  const seed = (year * 372 + (month + 1) * 31 + day) % 10;
+  if (seed < 5) return "won";
+  if (seed < 8) return "lost";
+  return "unfinished";
+}
+
+function buildDays(year: number, month: number): Day[] {
+  const firstDow = new Date(Date.UTC(year, month, 1)).getUTCDay();
+  const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const now = new Date();
+  const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
+  const cells: Day[] = Array.from({ length: firstDow }, () => ({ d: 0, status: "empty" as const }));
+  for (let d = 1; d <= daysInMonth; d++) {
+    const cur = new Date(Date.UTC(year, month, d));
+    let status: Status;
+    if (cur.getTime() === today.getTime()) status = "today";
+    else if (cur > today || cur < LAUNCH) status = "future";
+    else status = pseudoStatus(year, month, d);
+    cells.push({ d, status });
+  }
+  return cells;
+}
 
 export default function Archive() {
+  const now = new Date();
+  const [view, setView] = useState({ y: now.getFullYear(), m: now.getMonth() });
+
+  const days = useMemo(() => buildDays(view.y, view.m), [view]);
+  const monthLabel = new Date(view.y, view.m, 1).toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+
+  const goPrev = () =>
+    setView(({ y, m }) => (m === 0 ? { y: y - 1, m: 11 } : { y, m: m - 1 }));
+  const goNext = () =>
+    setView(({ y, m }) => (m === 11 ? { y: y + 1, m: 0 } : { y, m: m + 1 }));
+
   return (
-    <section id="archive" className="relative py-16 md:py-32 bg-gradient-to-b from-[#07060d] via-[#0d0a1a] to-[#07060d] overflow-hidden">
+    <section id="archive" className="relative py-14 md:py-32 bg-gradient-to-b from-[#07060d] via-[#0d0a1a] to-[#07060d] overflow-hidden">
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-700/15 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          <div>
+          <div className="relative">
             <span className="inline-block text-orange-400 font-bold tracking-[0.25em] uppercase mb-3 md:mb-4 text-xs">The archive</span>
             <h2 className="text-3xl md:text-6xl font-extrabold tracking-tighter mb-4 md:mb-6">
               Miss a daily? <br />
@@ -55,6 +79,16 @@ export default function Archive() {
                 <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ring-2 ring-purple-400" /> Today
               </span>
             </div>
+
+            {/* Logo: aligned beneath the legend, on the height of the calendar's "Play today's track" CTA */}
+            <div className="hidden lg:flex absolute left-0 bottom-0 items-end">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://ispotly.com/ispotly_logo_transperant.png"
+                alt="iSpotly"
+                className="h-14 w-auto opacity-90"
+              />
+            </div>
           </div>
 
           <motion.div
@@ -64,11 +98,11 @@ export default function Archive() {
             className="relative rounded-[28px] md:rounded-[32px] bg-[#11102a] border border-white/10 p-5 md:p-8 backdrop-blur-xl"
           >
             <div className="flex items-center justify-between mb-6">
-              <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10">
+              <button onClick={goPrev} aria-label="Previous month" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition active:scale-95">
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <h3 className="text-2xl font-extrabold">April 2026</h3>
-              <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10">
+              <h3 className="text-xl md:text-2xl font-extrabold">{monthLabel}</h3>
+              <button onClick={goNext} aria-label="Next month" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition active:scale-95">
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -80,7 +114,7 @@ export default function Archive() {
             </div>
             <div className="grid grid-cols-7 gap-2">
               {days.map((day, i) => {
-                const dateStr = `2026-04-${String(day.d).padStart(2, "0")}`;
+                const dateStr = `${view.y}-${String(view.m + 1).padStart(2, "0")}-${String(day.d).padStart(2, "0")}`;
                 const href =
                   day.status === "today"
                     ? "https://ispotly.com/daily"
@@ -116,6 +150,16 @@ export default function Archive() {
               Play today's track
             </a>
           </motion.div>
+        </div>
+
+        {/* Mobile-only logo placement (bottom-left look reads as 'beneath the legend' on stacked layout) */}
+        <div className="lg:hidden flex justify-start mt-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://ispotly.com/ispotly_logo_transperant.png"
+            alt="iSpotly"
+            className="h-10 w-auto opacity-90"
+          />
         </div>
       </div>
     </section>

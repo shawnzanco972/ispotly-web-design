@@ -26,7 +26,7 @@ export default function Vibes() {
   };
 
   return (
-    <section className="relative py-20 md:py-24 bg-[#07060d] overflow-hidden">
+    <section className="relative py-12 md:py-24 bg-[#07060d] overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex items-end justify-between mb-8 gap-4">
           <div>

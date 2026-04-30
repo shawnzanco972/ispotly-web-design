@@ -51,7 +51,7 @@ export default function Navbar() {
               alt="iSpotly"
               className={`transition-all ${scrolled ? "h-8" : "h-10"} w-auto group-hover:scale-105`}
             />
-            <span className={`hidden sm:inline font-extrabold tracking-tight text-white transition-all ${scrolled ? "text-base" : "text-xl"}`}>
+            <span className={`font-extrabold tracking-tight text-white transition-all ${scrolled ? "text-base" : "text-lg sm:text-xl"}`}>
               iSpotly
             </span>
           </Link>
