@@ -55,8 +55,8 @@ export default function Archive() {
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-700/15 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          <div className="relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
+          <div className="relative flex flex-col">
             <span className="inline-block text-orange-400 font-bold tracking-[0.25em] uppercase mb-3 md:mb-4 text-xs">The archive</span>
             <h2 className="text-3xl md:text-6xl font-extrabold tracking-tighter mb-4 md:mb-6">
               Miss a daily? <br />
@@ -80,14 +80,15 @@ export default function Archive() {
               </span>
             </div>
 
-            {/* Logo: aligned beneath the legend, on the height of the calendar's "Play today's track" CTA */}
-            <div className="hidden lg:flex absolute left-0 bottom-0 items-end">
+            {/* Logo: pushed to bottom-left of the column so it lands at the height of "Play today's track" */}
+            <div className="hidden lg:flex mt-auto pt-10 items-center gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://ispotly.com/ispotly_logo_transperant.png"
                 alt="iSpotly"
-                className="h-14 w-auto opacity-90"
+                className="h-12 w-auto"
               />
+              <span className="text-2xl font-extrabold tracking-tight text-white">iSpotly</span>
             </div>
           </div>
 
@@ -152,14 +153,15 @@ export default function Archive() {
           </motion.div>
         </div>
 
-        {/* Mobile-only logo placement (bottom-left look reads as 'beneath the legend' on stacked layout) */}
-        <div className="lg:hidden flex justify-start mt-6">
+        {/* Mobile-only logo placement */}
+        <div className="lg:hidden flex justify-start items-center gap-2 mt-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://ispotly.com/ispotly_logo_transperant.png"
             alt="iSpotly"
-            className="h-10 w-auto opacity-90"
+            className="h-9 w-auto"
           />
+          <span className="text-xl font-extrabold tracking-tight text-white">iSpotly</span>
         </div>
       </div>
     </section>
