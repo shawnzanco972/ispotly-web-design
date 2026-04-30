@@ -14,11 +14,11 @@ type Review = {
 };
 
 const reviews: Review[] = [
-  { quote: "It's challenging but addicting!", author: "App Store · Apr 6",  pos: { left: "-3%",  top: "12%" },    rotate: -5, size: "text-3xl md:text-5xl" },
-  { quote: "I can't stop!",                    author: "App Store · Mar 6",  pos: { right: "-2%", top: "18%" },    rotate: 4,  size: "text-3xl md:text-5xl" },
-  { quote: "Such a unique game",               author: "App Store · Feb 28", pos: { left: "32%",  top: "2%" },     rotate: -2, size: "text-2xl md:text-4xl", hideOnMobile: true },
-  { quote: "A great addition to our hangouts!", author: "App Store · Feb 26", pos: { left: "-4%",  bottom: "8%" },  rotate: 3,  size: "text-2xl md:text-4xl", hideOnMobile: true },
-  { quote: "Play all the time. So much fun.",   author: "App Store · Mar 6",  pos: { right: "-3%", bottom: "10%" }, rotate: -3, size: "text-2xl md:text-4xl", hideOnMobile: true },
+  { quote: "It's challenging but addicting!", author: "App Store · Apr 6",  pos: { left: "4%",  top: "18%" },    rotate: -5, size: "text-lg md:text-4xl" },
+  { quote: "I can't stop!",                    author: "App Store · Mar 6",  pos: { right: "5%", top: "22%" },    rotate: 4,  size: "text-lg md:text-4xl" },
+  { quote: "Such a unique game",               author: "App Store · Feb 28", pos: { left: "36%", top: "8%" },     rotate: -2, size: "text-base md:text-3xl" },
+  { quote: "A great addition to our hangouts!", author: "App Store · Feb 26", pos: { left: "5%",  bottom: "18%" }, rotate: 3,  size: "text-base md:text-3xl" },
+  { quote: "Play all the time. So much fun.",   author: "App Store · Mar 6",  pos: { right: "4%", bottom: "10%" }, rotate: -3, size: "text-base md:text-3xl" },
 ];
 
 export default function DownloadCTA() {
@@ -40,12 +40,12 @@ export default function DownloadCTA() {
             viewport={{ once: true }}
             transition={{ delay: i * 0.1, duration: 0.8 }}
             style={{ ...r.pos, transform: `rotate(${r.rotate}deg)` }}
-            className={`absolute max-w-[280px] md:max-w-[440px] ${r.hideOnMobile ? "hidden md:block" : ""}`}
+            className="absolute max-w-[150px] md:max-w-[440px]"
           >
             <div className={`font-extrabold text-white/[0.14] md:text-white/[0.10] leading-[0.95] tracking-tighter ${r.size}`}>
               &ldquo;{r.quote}&rdquo;
             </div>
-            <div className="mt-1.5 flex items-center gap-2 text-white/30 md:text-white/20 text-[9px] md:text-[11px] uppercase tracking-widest font-bold">
+            <div className="mt-1 flex items-center gap-1.5 text-white/25 md:text-white/20 text-[8px] md:text-[11px] uppercase tracking-widest font-bold">
               <span className="flex">
                 {Array.from({ length: 5 }).map((_, k) => (
                   <Star key={k} className="w-2.5 h-2.5 md:w-3 md:h-3 fill-current" />

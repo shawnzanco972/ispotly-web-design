@@ -45,10 +45,13 @@ export default function Archive() {
     year: "numeric",
   });
 
+  const atCurrent = view.y === now.getFullYear() && view.m === now.getMonth();
   const goPrev = () =>
     setView(({ y, m }) => (m === 0 ? { y: y - 1, m: 11 } : { y, m: m - 1 }));
-  const goNext = () =>
+  const goNext = () => {
+    if (atCurrent) return;
     setView(({ y, m }) => (m === 11 ? { y: y + 1, m: 0 } : { y, m: m + 1 }));
+  };
 
   return (
     <section id="archive" className="relative py-14 md:py-32 bg-gradient-to-b from-[#07060d] via-[#0d0a1a] to-[#07060d] overflow-hidden">
@@ -103,7 +106,7 @@ export default function Archive() {
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <h3 className="text-xl md:text-2xl font-extrabold">{monthLabel}</h3>
-              <button onClick={goNext} aria-label="Next month" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition active:scale-95">
+              <button onClick={goNext} aria-label="Next month" disabled={atCurrent} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5">
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
